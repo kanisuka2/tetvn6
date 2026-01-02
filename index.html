@@ -3,26 +3,535 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng Năm Mới - Lì Xì Học Sinh 2026</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Chúc Mừng Năm Mới 2026 - Cô Giáo Mừng Tuổi Học Sinh</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a1f44 0%, #1a1a2e 100%);
+            color: white;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Hình nền Tết 2026 */
+        .tet-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1604595413168-c642dc8d7414?q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        /* Canvas pháo hoa nền */
+        #backgroundFireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Container chính */
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(188, 0, 45, 0.9);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(188, 0, 45, 0.4);
+            border: 3px solid #ffd700;
+        }
+
+        .total-money-display {
+            background: linear-gradient(135deg, #ffd700, #ff9500);
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #bc002d;
+            min-width: 250px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .total-money-display i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .title {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .title h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #ffd700, #ff9500, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        .end-button {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+
+        .end-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 65, 108, 0.6);
+        }
+
+        /* Nội dung chính */
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Bên trái - Bánh chưng */
+        .left-decoration {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .banh-chung {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .banh-chung:before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px dashed #ffd700;
+            border-radius: 10px;
+        }
+
+        .banh-chung:after {
+            content: "🎋";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+        }
+
+        .greeting-text {
+            text-align: center;
+            padding: 20px;
+            background: rgba(188, 0, 45, 0.8);
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        .greeting-text h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Bên phải - Cô giáo */
+        .right-decoration {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .teacher-img {
+            width: 200px;
+            height: 300px;
+            background: linear-gradient(135deg, #bc002d, #8b0000);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .teacher-img:before {
+            content: "👩‍🏫";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+        }
+
+        .teacher-greeting {
+            text-align: center;
+            padding: 20px;
+            background: rgba(188, 0, 45, 0.8);
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        .teacher-greeting h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .gift-bag {
+            margin-top: 20px;
+            color: #ffd700;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Khu vực trung tâm - Cây đào */
+        .center-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Thông báo tiền */
+        .money-notification {
+            position: absolute;
+            top: -80px;
+            background: linear-gradient(135deg, #ffd700, #ff9500);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #bc002d;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+            z-index: 100;
+            display: none;
+            animation: bounceIn 0.5s;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3) translateY(-100px); opacity: 0; }
+            50% { transform: scale(1.1); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        /* Container cây đào */
+        .tree-container {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tree-container:hover {
+            transform: scale(1.02);
+        }
+
+        /* SVG cây đào */
+        .peach-tree-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Bao lì xì */
+        .lucky-envelope {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            cursor: pointer;
+            z-index: 50;
+            transition: transform 0.3s;
+            pointer-events: none;
+        }
+
+        .lucky-envelope:hover {
+            transform: scale(1.1);
+        }
+
+        .envelope-front {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #bc002d, #8b0000);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid #ffd700;
+            overflow: hidden;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: -15px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: #bc002d;
+            clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+            border-top: 2px solid #ffd700;
+        }
+
+        .envelope-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .envelope-open .envelope-front {
+            transform: rotateX(180deg);
+            transition: transform 0.8s;
+        }
+
+        /* Thông tin lì xì */
+        .envelope-info {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            width: 100%;
+            text-align: center;
+            border: 2px dashed #ffd700;
+        }
+
+        /* Hướng dẫn */
+        .instructions {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .instructions p {
+            font-size: 1.2rem;
+            color: #ffd700;
+            margin: 0;
+        }
+
+        .instructions i {
+            margin-right: 10px;
+            color: #4caf50;
+        }
+
+        .music-btn {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Overlay kết thúc */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .celebration-content {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #bc002d, #8b0000);
+            border-radius: 30px;
+            max-width: 800px;
+            width: 90%;
+            border: 5px solid #ffd700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .celebration-title {
+            font-size: 3.5rem;
+            color: #ffd700;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.7); }
+            to { text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.7); }
+        }
+
+        .fireworks-container {
+            width: 100%;
+            height: 300px;
+            margin: 30px 0;
+        }
+
+        .final-message {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .final-message h2 {
+            font-size: 4rem;
+            color: #4caf50;
+            margin: 20px 0;
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .left-decoration, .right-decoration {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            
+            .title h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .total-money-display, .end-button {
+                width: 100%;
+            }
+            
+            .celebration-title {
+                font-size: 2.5rem;
+            }
+            
+            .final-message h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Background Music -->
-    <audio id="tetMusic" loop>
-        <source src="music/tet-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <!-- Hình nền Tết 2026 -->
+    <div class="tet-background"></div>
     
-    <!-- Background Fireworks Canvas -->
+    <!-- Canvas pháo hoa nền -->
     <canvas id="backgroundFireworks"></canvas>
     
-    <!-- Falling Items Canvas -->
-    <canvas id="fallingItems"></canvas>
-    
-    <!-- Main Container -->
+    <!-- Container chính -->
     <div class="container">
-        <!-- Header with Money Display -->
+        <!-- Header -->
         <div class="header">
             <div class="total-money-display">
                 <i class="fas fa-money-bill-wave"></i>
@@ -37,11 +546,11 @@
             </button>
         </div>
         
-        <!-- Main Content -->
+        <!-- Nội dung chính -->
         <div class="main-content">
-            <!-- Left Side - Bánh Chưng -->
+            <!-- Bên trái - Bánh chưng -->
             <div class="left-decoration">
-                <img src="images/banh-chung.png" alt="Bánh Chưng" class="decoration-img">
+                <div class="decoration-img banh-chung"></div>
                 <div class="greeting-text">
                     <h3>Chúc các em học sinh:</h3>
                     <p>• Học giỏi, chăm ngoan</p>
@@ -50,33 +559,34 @@
                 </div>
             </div>
             
-            <!-- Center - Peach Tree -->
+            <!-- Khu vực trung tâm - Cây đào -->
             <div class="center-section">
-                <!-- Money Notification -->
+                <!-- Thông báo tiền -->
                 <div id="moneyNotification" class="money-notification">
                     <div class="notification-content">
                         <span id="currentAmount">0</span> VND
                     </div>
                 </div>
                 
-                <!-- SVG Peach Tree -->
+                <!-- Cây đào với lì xì treo -->
                 <div class="tree-container" id="peachTree">
-                    <!-- SVG tree will be inserted by JavaScript -->
+                    <!-- SVG tree sẽ được chèn bằng JavaScript -->
                     <div class="tree-placeholder">
                         <i class="fas fa-tree fa-5x"></i>
                         <p>Đang tải cây đào...</p>
                     </div>
                 </div>
                 
-                <!-- Envelope Collection Area -->
-                <div id="envelopeCollection" class="envelope-collection">
-                    <p>Bao lì xì đã nhận: <span id="envelopeCount">0</span>/51</p>
+                <!-- Thông tin lì xì -->
+                <div class="envelope-info">
+                    <p>Lì xì đã mở: <span id="envelopeCount">0</span>/51</p>
+                    <p>Nhấn vào cây đào để mở lì xì ngẫu nhiên</p>
                 </div>
             </div>
             
-            <!-- Right Side - Teacher -->
+            <!-- Bên phải - Cô giáo -->
             <div class="right-decoration">
-                <img src="images/teacher-ao-dai.png" alt="Cô giáo áo dài" class="decoration-img teacher-img">
+                <div class="decoration-img teacher-img"></div>
                 <div class="teacher-greeting">
                     <h3>Cô giáo chúc các em</h3>
                     <p>Năm mới an khang,<br>thịnh vượng!</p>
@@ -87,16 +597,15 @@
             </div>
         </div>
         
-        <!-- Instructions -->
+        <!-- Hướng dẫn -->
         <div class="instructions">
-            <p><i class="fas fa-mouse-pointer"></i> Nhấn vào cây đào để hái lộc lì xì!</p>
-            <p><i class="fas fa-fire"></i> Mỗi lần hái lộc sẽ có pháo hoa chúc mừng</p>
+            <p><i class="fas fa-hand-pointer"></i> Nhấn vào cây đào để mở lì xì ngẫu nhiên!</p>
             <button id="musicToggle" class="music-btn">
-                <i class="fas fa-volume-up"></i> Bật/Tắt Nhạc
+                <i class="fas fa-volume-up"></i> Bật Nhạc Tết
             </button>
         </div>
         
-        <!-- Celebration Overlay (Hidden Initially) -->
+        <!-- Overlay kết thúc -->
         <div id="celebrationOverlay" class="celebration-overlay">
             <div class="celebration-content">
                 <h1 class="celebration-title">🎊 CHÚC MỪNG NĂM MỚI 2026 🎊</h1>
@@ -112,9 +621,470 @@
             </div>
         </div>
     </div>
-    
-    <!-- JavaScript Files -->
-    <script src="firework.js"></script>
-    <script src="script.js"></script>
+
+    <!-- JavaScript -->
+    <script>
+        // Lớp chính điều khiển ứng dụng
+        class TetLixiApp {
+            constructor() {
+                this.envelopes = [];
+                this.totalMoney = 0;
+                this.collectedEnvelopes = 0;
+                this.envelopeValues = this.generateEnvelopeValues();
+                this.isAnimating = false;
+                this.openedEnvelopes = new Set(); // Lưu các lì xì đã mở
+                
+                // DOM Elements
+                this.treeContainer = document.getElementById('peachTree');
+                this.totalMoneyDisplay = document.getElementById('totalMoney');
+                this.envelopeCountDisplay = document.getElementById('envelopeCount');
+                this.moneyNotification = document.getElementById('moneyNotification');
+                this.currentAmountDisplay = document.getElementById('currentAmount');
+                this.finalAmountDisplay = document.getElementById('finalAmount');
+                this.celebrationOverlay = document.getElementById('celebrationOverlay');
+                
+                // Buttons
+                this.endButton = document.getElementById('endBtn');
+                this.musicToggle = document.getElementById('musicToggle');
+                this.restartButton = document.getElementById('restartBtn');
+                
+                // Audio
+                this.tetMusic = new Audio('https://assets.mixkit.co/music/preview/mixkit-happy-new-year-2019-479.mp3');
+                this.tetMusic.loop = true;
+                this.tetMusic.volume = 0.5;
+                
+                // Khởi tạo
+                this.init();
+            }
+            
+            // Tạo giá trị cho 51 bao lì xì
+            generateEnvelopeValues() {
+                const values = [];
+                
+                // 1 x 100k
+                values.push(100000);
+                
+                // 5 x 50k
+                for (let i = 0; i < 5; i++) values.push(50000);
+                
+                // 20 x 20k
+                for (let i = 0; i < 20; i++) values.push(20000);
+                
+                // 20 x 10k
+                for (let i = 0; i < 20; i++) values.push(10000);
+                
+                // 5 x 5k
+                for (let i = 0; i < 5; i++) values.push(5000);
+                
+                // Xáo trộn các giá trị
+                return this.shuffleArray(values);
+            }
+            
+            // Hàm xáo trộn mảng
+            shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            init() {
+                this.createPeachTree();
+                this.createEnvelopes();
+                this.attachEventListeners();
+                this.startBackgroundFireworks();
+                
+                // Xử lý nút nhạc
+                this.musicToggle.addEventListener('click', () => {
+                    if (this.tetMusic.paused) {
+                        this.tetMusic.play().catch(e => console.log("Lỗi phát nhạc:", e));
+                        this.musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i> Tắt Nhạc';
+                    } else {
+                        this.tetMusic.pause();
+                        this.musicToggle.innerHTML = '<i class="fas fa-volume-up"></i> Bật Nhạc Tết';
+                    }
+                });
+                
+                // Tự động bật nhạc khi có tương tác đầu tiên
+                document.addEventListener('click', () => {
+                    if (this.tetMusic.paused) {
+                        this.tetMusic.play().catch(e => console.log("Cần tương tác để phát nhạc"));
+                    }
+                }, { once: true });
+            }
+            
+            // Tạo cây đào SVG
+            createPeachTree() {
+                const svgNS = "http://www.w3.org/2000/svg";
+                const svg = document.createElementNS(svgNS, "svg");
+                svg.setAttribute("width", "100%");
+                svg.setAttribute("height", "100%");
+                svg.setAttribute("viewBox", "0 0 800 600");
+                svg.classList.add("peach-tree-svg");
+                
+                // Thân cây
+                const trunk = document.createElementNS(svgNS, "path");
+                trunk.setAttribute("d", "M400,550 C400,450 450,400 400,350 C350,300 400,250 400,150");
+                trunk.setAttribute("fill", "none");
+                trunk.setAttribute("stroke", "#8B4513");
+                trunk.setAttribute("stroke-width", "30");
+                trunk.setAttribute("stroke-linecap", "round");
+                svg.appendChild(trunk);
+                
+                // Cành cây
+                const branches = [
+                    {d: "M400,350 Q300,320 280,280", width: 20},
+                    {d: "M400,350 Q500,320 520,280", width: 20},
+                    {d: "M400,250 Q320,220 300,180", width: 15},
+                    {d: "M400,250 Q480,220 500,180", width: 15},
+                    {d: "M400,450 Q350,420 330,380", width: 18},
+                    {d: "M400,450 Q450,420 470,380", width: 18}
+                ];
+                
+                branches.forEach(branch => {
+                    const path = document.createElementNS(svgNS, "path");
+                    path.setAttribute("d", branch.d);
+                    path.setAttribute("fill", "none");
+                    path.setAttribute("stroke", "#8B4513");
+                    path.setAttribute("stroke-width", branch.width);
+                    path.setAttribute("stroke-linecap", "round");
+                    svg.appendChild(path);
+                });
+                
+                // Hoa đào
+                const flowerColors = ['#ff69b4', '#ff1493', '#db7093'];
+                for (let i = 0; i < 80; i++) {
+                    const x = 200 + Math.random() * 400;
+                    const y = 100 + Math.random() * 400;
+                    const size = 5 + Math.random() * 10;
+                    const color = flowerColors[Math.floor(Math.random() * flowerColors.length)];
+                    
+                    const flower = document.createElementNS(svgNS, "circle");
+                    flower.setAttribute("cx", x);
+                    flower.setAttribute("cy", y);
+                    flower.setAttribute("r", size);
+                    flower.setAttribute("fill", color);
+                    flower.setAttribute("opacity", "0.8");
+                    svg.appendChild(flower);
+                    
+                    // Nhụy hoa
+                    const center = document.createElementNS(svgNS, "circle");
+                    center.setAttribute("cx", x);
+                    center.setAttribute("cy", y);
+                    center.setAttribute("r", size/3);
+                    center.setAttribute("fill", "#ffd700");
+                    svg.appendChild(center);
+                }
+                
+                // Lá cây
+                for (let i = 0; i < 50; i++) {
+                    const x = 200 + Math.random() * 400;
+                    const y = 150 + Math.random() * 350;
+                    const size = 8 + Math.random() * 12;
+                    
+                    const leaf = document.createElementNS(svgNS, "ellipse");
+                    leaf.setAttribute("cx", x);
+                    leaf.setAttribute("cy", y);
+                    leaf.setAttribute("rx", size);
+                    leaf.setAttribute("ry", size/2);
+                    leaf.setAttribute("fill", "#32cd32");
+                    leaf.setAttribute("opacity", "0.7");
+                    leaf.setAttribute("transform", `rotate(${Math.random() * 360}, ${x}, ${y})`);
+                    svg.appendChild(leaf);
+                }
+                
+                // Xóa placeholder và thêm SVG
+                this.treeContainer.innerHTML = '';
+                this.treeContainer.appendChild(svg);
+            }
+            
+            // Tạo 51 bao lì xì
+            createEnvelopes() {
+                // Tạo các vị trí ngẫu nhiên cho lì xì
+                const positions = [];
+                for (let i = 0; i < 51; i++) {
+                    positions.push({
+                        x: 150 + Math.random() * 500,
+                        y: 100 + Math.random() * 350
+                    });
+                }
+                
+                // Tạo các bao lì xì
+                positions.forEach((pos, index) => {
+                    const envelope = document.createElement('div');
+                    envelope.className = 'lucky-envelope';
+                    envelope.dataset.index = index;
+                    envelope.dataset.value = this.envelopeValues[index] || 0;
+                    envelope.dataset.opened = 'false';
+                    
+                    // Đặt vị trí
+                    envelope.style.left = `${(pos.x / 800) * 100}%`;
+                    envelope.style.top = `${(pos.y / 600) * 100}%`;
+                    
+                    // Nội dung lì xì
+                    envelope.innerHTML = `
+                        <div class="envelope-front">
+                            <div class="envelope-flap"></div>
+                            <div class="envelope-text">Lộc</div>
+                        </div>
+                    `;
+                    
+                    this.treeContainer.appendChild(envelope);
+                    this.envelopes.push(envelope);
+                });
+            }
+            
+            // Mở một lì xì ngẫu nhiên
+            openRandomEnvelope() {
+                if (this.isAnimating || this.collectedEnvelopes >= 51) return;
+                
+                // Tìm lì xì chưa mở
+                const unopenedIndices = [];
+                this.envelopes.forEach((envelope, index) => {
+                    if (envelope.dataset.opened === 'false') {
+                        unopenedIndices.push(index);
+                    }
+                });
+                
+                if (unopenedIndices.length === 0) return;
+                
+                // Chọn ngẫu nhiên một lì xì
+                const randomIndex = unopenedIndices[Math.floor(Math.random() * unopenedIndices.length)];
+                const envelope = this.envelopes[randomIndex];
+                
+                this.isAnimating = true;
+                
+                // Rung cây
+                this.shakeTree();
+                
+                // Mở lì xì
+                this.animateEnvelopeOpen(envelope, randomIndex);
+            }
+            
+            // Rung cây
+            shakeTree() {
+                const tree = this.treeContainer.querySelector('.peach-tree-svg');
+                if (!tree) return;
+                
+                tree.style.transition = 'transform 0.1s';
+                
+                const shake = () => {
+                    tree.style.transform = 'translateX(-10px) rotate(-1deg)';
+                    setTimeout(() => {
+                        tree.style.transform = 'translateX(8px) rotate(1deg)';
+                        setTimeout(() => {
+                            tree.style.transform = 'translateX(-6px) rotate(-0.5deg)';
+                            setTimeout(() => {
+                                tree.style.transform = 'translateX(4px) rotate(0.5deg)';
+                                setTimeout(() => {
+                                    tree.style.transform = 'translateX(0) rotate(0deg)';
+                                }, 50);
+                            }, 50);
+                        }, 50);
+                    }, 50);
+                };
+                
+                shake();
+            }
+            
+            // Hiệu ứng mở lì xì
+            animateEnvelopeOpen(envelope, index) {
+                // Đánh dấu đã mở
+                envelope.dataset.opened = 'true';
+                envelope.classList.add('envelope-open');
+                
+                // Hiển thị giá trị
+                const value = parseInt(envelope.dataset.value);
+                setTimeout(() => {
+                    this.showMoneyNotification(value);
+                    
+                    // Cập nhật tổng
+                    this.totalMoney += value;
+                    this.collectedEnvelopes++;
+                    
+                    this.totalMoneyDisplay.textContent = this.formatMoney(this.totalMoney);
+                    this.envelopeCountDisplay.textContent = this.collectedEnvelopes;
+                    
+                    // Pháo hoa
+                    this.triggerFireworks();
+                    
+                    // Kiểm tra kết thúc
+                    if (this.collectedEnvelopes >= 51) {
+                        setTimeout(() => this.showFinalCelebration(), 1000);
+                    }
+                    
+                    this.isAnimating = false;
+                }, 800);
+            }
+            
+            // Hiển thị thông báo tiền
+            showMoneyNotification(amount) {
+                this.currentAmountDisplay.textContent = this.formatMoney(amount);
+                this.moneyNotification.style.display = 'block';
+                
+                // Hiệu ứng
+                this.moneyNotification.style.animation = 'none';
+                setTimeout(() => {
+                    this.moneyNotification.style.animation = 'bounceIn 0.5s';
+                }, 10);
+                
+                // Ẩn sau 2 giây
+                setTimeout(() => {
+                    this.moneyNotification.style.display = 'none';
+                }, 2000);
+            }
+            
+            // Kích hoạt pháo hoa
+            triggerFireworks() {
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        this.createFirework(
+                            Math.random() * window.innerWidth,
+                            Math.random() * window.innerHeight / 2,
+                            color
+                        );
+                    }, i * 100);
+                }
+            }
+            
+            // Tạo pháo hoa
+            createFirework(x, y, color) {
+                const canvas = document.getElementById('backgroundFireworks');
+                const ctx = canvas.getContext('2d');
+                
+                const particles = [];
+                const particleCount = 100;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: x,
+                        y: y,
+                        radius: Math.random() * 2 + 1,
+                        color: color,
+                        speed: Math.random() * 5 + 2,
+                        angle: Math.random() * Math.PI * 2,
+                        friction: 0.95,
+                        gravity: 0.2,
+                        alpha: 1,
+                        decay: Math.random() * 0.015 + 0.015
+                    });
+                }
+                
+                // Vẽ pháo hoa
+                const drawFirework = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    particles.forEach(particle => {
+                        particle.speed *= particle.friction;
+                        particle.x += Math.cos(particle.angle) * particle.speed;
+                        particle.y += Math.sin(particle.angle) * particle.speed + particle.gravity;
+                        particle.alpha -= particle.decay;
+                        
+                        if (particle.alpha > 0) {
+                            ctx.beginPath();
+                            ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(${this.hexToRgb(particle.color)}, ${particle.alpha})`;
+                            ctx.fill();
+                        }
+                    });
+                    
+                    // Loại bỏ hạt đã biến mất
+                    const remaining = particles.filter(p => p.alpha > 0);
+                    
+                    if (remaining.length > 0) {
+                        requestAnimationFrame(drawFirework);
+                    }
+                };
+                
+                drawFirework();
+            }
+            
+            // Chuyển hex sang rgb
+            hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? 
+                    `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
+                    '255, 255, 255';
+            }
+            
+            // Pháo hoa nền
+            startBackgroundFireworks() {
+                setInterval(() => {
+                    if (Math.random() > 0.7) {
+                        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        this.createFirework(
+                            Math.random() * window.innerWidth,
+                            window.innerHeight,
+                            color
+                        );
+                    }
+                }, 2000);
+            }
+            
+            // Hiển thị màn hình kết thúc
+            showFinalCelebration() {
+                this.finalAmountDisplay.textContent = this.formatMoney(this.totalMoney) + ' VND';
+                this.celebrationOverlay.style.display = 'flex';
+                
+                // Pháo hoa rực rỡ
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        this.createFirework(
+                            Math.random() * window.innerWidth,
+                            Math.random() * window.innerHeight,
+                            color
+                        );
+                    }, i * 100);
+                }
+            }
+            
+            // Định dạng tiền
+            formatMoney(amount) {
+                return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+            
+            // Gắn sự kiện
+            attachEventListeners() {
+                // Click vào cây để mở lì xì ngẫu nhiên
+                this.treeContainer.addEventListener('click', () => {
+                    this.openRandomEnvelope();
+                });
+                
+                // Nút kết thúc sớm
+                this.endButton.addEventListener('click', () => {
+                    this.showFinalCelebration();
+                });
+                
+                // Nút chơi lại
+                this.restartButton.addEventListener('click', () => {
+                    location.reload();
+                });
+            }
+        }
+        
+        // Khởi chạy ứng dụng khi DOM sẵn sàng
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new TetLixiApp();
+            window.tetApp = app;
+            
+            // Thiết lập kích thước canvas
+            const canvas = document.getElementById('backgroundFireworks');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Tự động điều chỉnh kích thước khi thay đổi cửa sổ
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        });
+    </script>
 </body>
 </html>
