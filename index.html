@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Năm Mới - Lì Xì Học Sinh 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="tetMusic" loop>
+        <source src="music/tet-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Background Fireworks Canvas -->
+    <canvas id="backgroundFireworks"></canvas>
+    
+    <!-- Falling Items Canvas -->
+    <canvas id="fallingItems"></canvas>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header with Money Display -->
+        <div class="header">
+            <div class="total-money-display">
+                <i class="fas fa-money-bill-wave"></i>
+                <span id="totalMoney">0</span> VND
+            </div>
+            <div class="title">
+                <h1>🎉 CHÚC MỪNG NĂM MỚI 2026 🎉</h1>
+                <p class="subtitle">Cô giáo mừng tuổi học sinh</p>
+            </div>
+            <button id="endBtn" class="end-button">
+                <i class="fas fa-fireworks"></i> Kết Thúc Sớm
+            </button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Side - Bánh Chưng -->
+            <div class="left-decoration">
+                <img src="images/banh-chung.png" alt="Bánh Chưng" class="decoration-img">
+                <div class="greeting-text">
+                    <h3>Chúc các em học sinh:</h3>
+                    <p>• Học giỏi, chăm ngoan</p>
+                    <p>• Sức khỏe dồi dào</p>
+                    <p>• Gia đình hạnh phúc</p>
+                </div>
+            </div>
+            
+            <!-- Center - Peach Tree -->
+            <div class="center-section">
+                <!-- Money Notification -->
+                <div id="moneyNotification" class="money-notification">
+                    <div class="notification-content">
+                        <span id="currentAmount">0</span> VND
+                    </div>
+                </div>
+                
+                <!-- SVG Peach Tree -->
+                <div class="tree-container" id="peachTree">
+                    <!-- SVG tree will be inserted by JavaScript -->
+                    <div class="tree-placeholder">
+                        <i class="fas fa-tree fa-5x"></i>
+                        <p>Đang tải cây đào...</p>
+                    </div>
+                </div>
+                
+                <!-- Envelope Collection Area -->
+                <div id="envelopeCollection" class="envelope-collection">
+                    <p>Bao lì xì đã nhận: <span id="envelopeCount">0</span>/51</p>
+                </div>
+            </div>
+            
+            <!-- Right Side - Teacher -->
+            <div class="right-decoration">
+                <img src="images/teacher-ao-dai.png" alt="Cô giáo áo dài" class="decoration-img teacher-img">
+                <div class="teacher-greeting">
+                    <h3>Cô giáo chúc các em</h3>
+                    <p>Năm mới an khang,<br>thịnh vượng!</p>
+                    <div class="gift-bag">
+                        <i class="fas fa-gift fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="instructions">
+            <p><i class="fas fa-mouse-pointer"></i> Nhấn vào cây đào để hái lộc lì xì!</p>
+            <p><i class="fas fa-fire"></i> Mỗi lần hái lộc sẽ có pháo hoa chúc mừng</p>
+            <button id="musicToggle" class="music-btn">
+                <i class="fas fa-volume-up"></i> Bật/Tắt Nhạc
+            </button>
+        </div>
+        
+        <!-- Celebration Overlay (Hidden Initially) -->
+        <div id="celebrationOverlay" class="celebration-overlay">
+            <div class="celebration-content">
+                <h1 class="celebration-title">🎊 CHÚC MỪNG NĂM MỚI 2026 🎊</h1>
+                <div class="fireworks-container" id="finalFireworks"></div>
+                <div class="final-message">
+                    <p>Tổng số tiền lì xì nhận được:</p>
+                    <h2 id="finalAmount">0 VND</h2>
+                    <p>Chúc các em học sinh một năm mới<br>học giỏi, chăm ngoan, thành công rực rỡ!</p>
+                    <button id="restartBtn" class="restart-btn">
+                        <i class="fas fa-redo"></i> Chơi Lại
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript Files -->
+    <script src="firework.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
